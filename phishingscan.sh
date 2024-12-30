@@ -6,25 +6,25 @@ while IFS= read -r line
 		#Domain="wnmxc8532uid.biz.id"
 		#heading="wnmxc8532uid.biz.id"
 
-		curl --compressed -s -H "API-Key: 00e3c013-c495-4ccd-8277-93a33d577bd4" "https://urlscan.io/api/v1/search/?q=domain:${Domain}" -o "$Domain"-raw.txt
+		curl --compressed -s -H "API-Key: $APIKEY" "https://urlscan.io/api/v1/search/?q=domain:${Domain}" -o "$Domain"-raw.txt
 		ID=$(cat ${Domain}-raw.txt | grep _id | awk -F'"' '{print $4}')
 
 		while IFS= read -r line
 			do
-				Malicious=$(curl -s -H "API-Key: 00e3c013-c495-4ccd-8277-93a33d577bd4" https://urlscan.io/result/${line} | grep "Malicious")
+				Malicious=$(curl -s -H "API-Key: $APIKEY" https://urlscan.io/result/${line} | grep "Malicious")
 				if [[ "${Malicious}" ]]; then
 					echo "Malicious"
-					Malicious=$(curl -s -H "API-Key: 00e3c013-c495-4ccd-8277-93a33d577bd4" https://urlscan.io/result/${line} -o "$Domain"-result.txt)
+					Malicious=$(curl -s -H "API-Key: $APIKEY" https://urlscan.io/result/${line} -o "$Domain"-result.txt)
 					URL=$(cat ${Domain}-result.txt | grep "Full URL" | head -1 | awk -F' ' '{print $2}')
 					URL=${URL##*://}
 					URL=${URL%<*}
 					URL=$(echo ${URL} | sed 's|/|_|g;')
 					echo ${URL}
-					curl -s -H "API-Key: 00e3c013-c495-4ccd-8277-93a33d577bd4" "https://urlscan.io/screenshots/${line}.png" -o "$URL".png
+					curl -s -H "API-Key: $APIKEY" "https://urlscan.io/screenshots/${line}.png" -o "$URL".png
      					Path=$(pwd)
 					PNG="$URL".png
 					PNG_Path="$Path/$PNG"
-					curl --compressed -s -H "API-Key: f1bc3a23-43ee-4ce3-9ce7-51fd6773d685" "https://urlscan.io/dom/${line}" -o "$URL".html
+					curl --compressed -s -H "API-Key: $APIKEY" "https://urlscan.io/dom/${line}" -o "$URL".html
 					DOM=$(cat "$URL".html)
 					DOM=$DOM
 
