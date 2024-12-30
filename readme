@@ -1,0 +1,4 @@
+If you have domain database then you want to check if the domain ever recorded for phishing you can use this script.
+This script will check you domain list to URLScan.io
+Check if there are any history / record, this script will check all of history / record URL for the domain.
+If there are sign "Malicious", it will store di screenshot (png) and get the DOM file and also will compilation png and DOM File to .docx
