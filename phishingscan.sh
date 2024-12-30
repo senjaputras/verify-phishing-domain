@@ -21,8 +21,9 @@ while IFS= read -r line
 					URL=$(echo ${URL} | sed 's|/|_|g;')
 					echo ${URL}
 					curl -s -H "API-Key: 00e3c013-c495-4ccd-8277-93a33d577bd4" "https://urlscan.io/screenshots/${line}.png" -o "$URL".png
+     					Path=$(pwd)
 					PNG="$URL".png
-					PNG_Path="/Users/putras/Downloads/Datashet_Phishing/$PNG"
+					PNG_Path="$Path/$PNG"
 					curl --compressed -s -H "API-Key: f1bc3a23-43ee-4ce3-9ce7-51fd6773d685" "https://urlscan.io/dom/${line}" -o "$URL".html
 					DOM=$(cat "$URL".html)
 					DOM=$DOM
